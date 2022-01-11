@@ -1,0 +1,25 @@
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+  # CI Job - Handling CI part of things
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+
+    - name: Install packages
+      run: npm install
+
+    - name: Run build
+      run: npm run build
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: landing-page
+        path: './dist'
